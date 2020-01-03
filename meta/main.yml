@@ -1,0 +1,12 @@
+galaxy_info:
+  author: florian lemiere
+  description: Ansible role to deploy an Openstack Nexus instance 
+  company: B-A-W
+
+  license: GPLv3
+
+  min_ansible_version: 2.5.1
+  
+  galaxy_tags: []
+
+dependencies: []

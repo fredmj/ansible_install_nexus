@@ -1,0 +1,15 @@
+---
+# Create SystemD file with template
+- name: "Create SystemD file with template"
+  template:
+    src: nexus.service.j2
+    dest: /etc/systemd/system/nexus.service
+
+    
+# Start and enable service
+- name: Start and enable nexus service
+  systemd:
+    name: nexus.service
+    state: started
+    enabled: yes
+    daemon_reload: yes

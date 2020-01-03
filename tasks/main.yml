@@ -1,0 +1,12 @@
+
+# prerequisite
+- include: prerequisite.yml
+
+# Nexus install
+- include: nexus_install.yml
+
+# Nexus configuration
+- include: nexus_configuration.yml
+
+# Nexus Service
+- include: nexus_service.yml

@@ -1,0 +1,50 @@
+---
+
+# Creatte nexus user
+- name: Add 'nexus' user
+  user:
+    name: nexus
+    createhome: no
+    system: no
+
+# Nexus home directory
+- name: Create nexus home directory
+  file:
+    path: "{{nexus_home}}"
+    state: directory
+    owner: nexus
+    group: nexus
+
+# Nexus Data directory
+- name: Create nexus data directory
+  file:
+    path: "{{nexus_data_directory}}"
+    state: directory
+    owner: nexus
+    group: nexus
+
+# Download latest Nexus and untar
+- name: "Download Nexus"
+  unarchive:
+    src: "http://download.sonatype.com/nexus/3/latest-unix.tar.gz"
+    dest: "{{nexus_home}}"
+    remote_src: yes
+    extra_opts: [--strip-components=1]
+    owner: nexus
+    group: nexus
+
+# Fix Owner and Group
+- name: Fix Nexus Home Owner and Group
+  file:
+    path: "{{nexus_home}}"
+    owner: nexus
+    group: nexus
+    recurse: yes
+
+# Set NEXUS_HOME
+- name: Set NEXUS_HOME
+  lineinfile:
+    dest: /etc/environment
+    state: present
+    regexp: "^NEXUS_HOME"
+    line: "NEXUS_HOME={{nexus_home}}"

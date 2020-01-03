@@ -1,0 +1,22 @@
+---
+
+# - Nexus -
+
+# Home Directory
+nexus_home: /opt/nexus
+
+# Data Directory
+nexus_data_directory: /var/nexus-data
+
+# Configuration XX:MaxDirectMemorySize
+memory_size: 2703m
+
+# Paramètres
+nexus_vmoptions: "{{nexus_home}}/bin/nexus.vmoptions"
+nexus_nexusrc: "{{nexus_home}}/bin/nexus.rc"
+
+nexus_logfile: "{{nexus_data_directory}}/nexus3/log/jvm.log"
+nexus_karaf_data: "{{nexus_data_directory}}/nexus3"
+nexus_karaf_log: "{{nexus_data_directory}}/nexus3/log"
+nexus_tmpdir: "{{nexus_data_directory}}/nexus3/tmp"
+

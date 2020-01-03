@@ -1,0 +1,54 @@
+---
+
+# Change nexus.vmoptions parameters
+
+- name: Set XX:MaxDirectMemorySize
+  lineinfile:
+    dest: "{{nexus_vmoptions}}"
+    state: present
+    regexp: "-XX:MaxDirectMemorySize="
+    line: "-XX:MaxDirectMemorySize={{memory_size}}"
+
+- name: Set XX:LogFile
+  lineinfile:
+    dest: "{{nexus_vmoptions}}"
+    state: present
+    regexp: "-XX:LogFile="
+    line: "-XX:LogFile={{nexus_logfile}}"
+
+- name: Set Dkaraf.data
+  lineinfile:
+    dest: "{{nexus_vmoptions}}"
+    state: present
+    regexp: "-Dkaraf.data="
+    line: "-Dkaraf.data={{nexus_karaf_data}}"
+
+- name: Set Dkaraf.log
+  lineinfile:
+    dest: "{{nexus_vmoptions}}"
+    state: present
+    regexp: "Dkaraf.log="
+    line: "-Dkaraf.log={{nexus_karaf_log}}"
+
+- name: Set Djava.io.tmpdir
+  lineinfile:
+    dest: "{{nexus_vmoptions}}"
+    state: present
+    regexp: "-Djava.io.tmpdir="
+    line: "-Djava.io.tmpdir={{nexus_tmpdir}}"
+
+# Change nexus.rc
+- name: Set run_as_user
+  lineinfile:
+    dest: "{{nexus_nexusrc}}"
+    state: present
+    regexp: "run_as_user"
+    line: 'run_as_user="nexus"'
+
+# Increasing file limit
+- name: Increasing nexus file limit
+  lineinfile:
+    dest: "/etc/security/limits.conf"
+    state: present
+    regexp: "^nexus"
+    line: "nexus    -    nofile    65536"

@@ -1,0 +1,29 @@
+---
+# Installation of prerequisites
+
+# Epel-release,  wget
+- name: Install a list of packages
+  yum:
+    name:
+      - epel-release
+      - wget
+    state: present
+
+# Java
+- name: Install Java Open Jdk
+  yum:
+    name:
+      - java-1.8.0-openjdk
+      - java-1.8.0-openjdk-devel
+
+# Set JAVA_HOME
+- name: Get Java Home path
+  shell: echo $(dirname $(dirname $(readlink $(readlink $(which javac)))))
+  register: java_home
+
+- name: Set JAVA_HOME
+  lineinfile: 
+    dest: /etc/environment 
+    state: present
+    regexp: "^JAVA_HOME"
+    line: "JAVA_HOME={{java_home.stdout}}"
